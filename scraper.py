@@ -2,10 +2,6 @@ import requests
 from bs4 import BeautifulSoup
 from lxml import etree
 
-# faculty_no = "21AIB111"
-faculty_no = "21AI111"
-enrolment_no = "GK8242"
-
 def clean_text(text):
     text = text[4:]
     text = text.split("</td>", 1)[0]
