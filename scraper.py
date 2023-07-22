@@ -2,10 +2,12 @@ import requests
 from bs4 import BeautifulSoup
 from lxml import etree
 
+
 def clean_text(text):
     text = text[4:]
     text = text.split("</td>", 1)[0]
     return text
+
 
 def fetch_cpi(faculty_no, enrolment_no):
     headers = {
@@ -29,14 +31,17 @@ def fetch_cpi(faculty_no, enrolment_no):
     }
 
     try:
-        response = requests.post('https://ctengg.amu.ac.in/web/table_result010.php',headers=headers, data=data)
+        response = requests.post(
+            'https://ctengg.amu.ac.in/web/table_result010.php', headers=headers, data=data)
 
         soup = BeautifulSoup(response.content, "html.parser")
         dom = etree.HTML(str(soup))
 
         table_elements = soup.find_all('td')
-        spi_second_sem = float(clean_text(str(table_elements[len(table_elements)-3])))
-        cpi_first_year = float(clean_text(str(table_elements[len(table_elements)-2])))
+        spi_second_sem = float(clean_text(
+            str(table_elements[len(table_elements)-3])))
+        cpi_first_year = float(clean_text(
+            str(table_elements[len(table_elements)-2])))
         spi_first_sem = 2 * cpi_first_year - spi_second_sem
 
         # print(spi_first_sem)
@@ -47,5 +52,3 @@ def fetch_cpi(faculty_no, enrolment_no):
 
     except:
         return [0, 0, 0]
-
-
