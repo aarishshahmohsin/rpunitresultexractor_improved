@@ -15,7 +15,4 @@ with open('output.csv', 'w', newline='') as output_file:
             for i in cpi_arr:
                 output_array.append(i)
             writer.writerow(output_array)
-    
-
-
-
+            print(output_array)
